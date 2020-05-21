@@ -2,7 +2,7 @@
   <div>
     <header>
       <form class="form_search" action="/">
-        <span class="form_search_city">{{city}}</span>
+        <span class="form_search_city">{{ city }}</span>
         <van-search
           shape="round"
           background="#E8B98E"
@@ -23,22 +23,61 @@
     <!-- 金刚区 -->
     <van-row type="flex" justify="center">
       <van-col span="6">
-        <img src />
+        <img class="four_img" src />
         <span>爆款推荐</span>
       </van-col>
       <van-col span="6">
-        <img src />
+        <img class="four_img" src />
         <span>限时特惠</span>
       </van-col>
       <van-col span="6">
-        <img src />
+        <img class="four_img" src />
         <span>汽车用品</span>
       </van-col>
       <van-col span="6">
-        <img src />
+        <img class="four_img" src />
         <span>车主生活</span>
       </van-col>
     </van-row>
+    <!-- 头条 -->
+    <div class="headlines">
+      <div class="headlines_left">
+        <span>头条</span>
+        <i class="line_y"></i>
+        <span class="headlines_left_val">{{ headlinesVal }}</span>
+      </div>
+      <div class="headlines_right">
+        <span>去抢购></span>
+      </div>
+    </div>
+    <!-- 每日更新 -->
+    <div class="day_push">
+      <div class="day_push_top">
+        <span class="day_push_top_left">每日更新</span>
+        <router-link class="day_push_top_right" to="">
+          查看更多
+        </router-link>
+      </div>
+      <div class="day_push_content">
+        <div class="day_push_content_left">
+          <div class="day_push_content_left_top">
+            <span class="f30c3">发现好货</span>
+            <button class="day_push_content_left_top_button">跟榜购物</button>
+          </div>
+          <p class="day_push_content_left_txt">车主小管家</p>
+          <img class="day_push_content_left_img" src="" />
+        </div>
+        <div class="day_push_content_right" >
+          <div class="day_push_content_right_item" v-for="item in dayPushShop" :key="item.shop_title">
+            <div>
+              <span>{{item.shop_title}}</span>
+              <button>{{item.shop_price}}</button>
+            </div>
+            <img :src=item.shop_img />
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -53,6 +92,11 @@ export default {
         //banner图
         "https://img.yzcdn.cn/vant/apple-1.jpg",
         "https://img.yzcdn.cn/vant/apple-2.jpg"
+      ],
+      headlinesVal: "巴拉巴拉小魔仙半合成机油", //滚动头条信息
+      dayPushShop:[//每日更新商品
+        {shop_title:"拓力普 钳子",shop_price:"特价19.90",shop_img:"#"},
+        {shop_title:"拓力普 钳子",shop_price:"特价19.90",shop_img:"#"}
       ]
     };
   },
@@ -98,7 +142,7 @@ header {
 .van-swipe {
   width: 90%;
   height: 18.75rem;
-  margin:-10.5rem auto 0;
+  margin: -10.5rem auto 0;
   border-radius: 1.25rem;
   border: 1px solid greenyellow;
   img {
@@ -125,5 +169,138 @@ header {
   font-weight: 400;
   color: rgba(51, 51, 51, 1);
   line-height: 2;
+  .four_img {
+    width: auto;
+    height: auto;
+    max-width: 4.375rem;
+    max-height: 4.375rem;
+  }
+}
+// 头条
+.headlines {
+  width: 90%;
+  height: 3.75rem;
+  margin: 2.8125rem auto 0;
+  background: rgba(245, 245, 245, 1);
+  border-radius: 0.625rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1.25rem;
+  .headlines_left {
+    font-size: 1.625rem;
+    color: #497df5;
+    font-weight: bold;
+  }
+  .headlines_left_val {
+    font-size: 1.625rem;
+    font-family: PingFang SC;
+    font-weight: 400;
+    color: rgba(153, 163, 178, 1);
+    line-height: 2;
+  }
+  .line_y {
+    display: inline-block;
+    width: 0.125rem;
+    height: 1.25rem;
+    background: rgba(205, 210, 218, 1);
+    margin: 0 1.25rem;
+  }
+  .headlines_right {
+    font-size: 1.5rem;
+    font-family: PingFang SC;
+    font-weight: 400;
+    color: rgba(50, 125, 250, 1);
+    line-height: 2;
+  }
+}
+// 每日更新
+.day_push {
+  width: 90%;
+  margin: 2.5rem auto 0;
+  border-radius: 10px;
+
+  .day_push_top {
+    @include fj();
+    align-items: center;
+    .day_push_top_left {
+      font-size: 1.875rem;
+      font-family: HuXiaoBo-NanShen;
+      font-weight: 400;
+      font-style: italic;
+      color: rgba(50, 125, 250, 1);
+      line-height: 2;
+    }
+    .day_push_top_right {
+      font-size: 1.625rem;
+      font-family: PingFang SC;
+      font-weight: 400;
+      color: rgba(189, 189, 189, 1);
+      line-height: 2;
+    }
+  }
+  .day_push_content {
+    margin-top: 1.875rem;
+    display: flex;
+    justify-content: space-between;
+    .day_push_content_left,
+    .day_push_content_right {
+      width: 46%;
+      height: 18.75rem;
+    }
+    .day_push_content_left {
+      padding-top: 1rem;
+      padding-left: 1.875rem;
+      background: rgba(255, 255, 255, 1);
+      border: 1px solid rgba(245, 245, 245, 1);
+      box-shadow: 0px 0px 20px 0px rgba(231, 239, 252, 1);
+      border-radius: 0.625rem;
+      .day_push_content_left_top_button {
+        font-size: 1.25rem;
+        font-family: PingFang SC;
+        font-weight: 400;
+        color: rgba(252, 144, 4, 1);
+        line-height: 2;
+        padding: 0 1.1875rem;
+        border: 1px solid rgba(252, 144, 4, 1);
+        border-radius: 1.125rem;
+        background: white;
+        margin-left: 0.9375rem;
+      }
+      .day_push_content_left_txt {
+        font-size: 1.375rem;
+        font-family: PingFang SC;
+        font-weight: 500;
+        color: rgba(189, 189, 189, 1);
+        line-height: 2;
+      }
+      .day_push_content_left_img {
+        @include wh(7.625rem, 9.25rem);
+        margin: 0 auto;
+        display: block;
+      }
+    }
+    .day_push_content_right {
+      @include fj();
+      flex-direction: column;
+      align-items: center;
+    }
+    .day_push_content_right .day_push_content_right_item {
+      width: 100%;
+      height: 47%;
+      background: rgba(255, 255, 255, 1);
+      border: 1px solid rgba(245, 245, 245, 1);
+      box-shadow: 0px 0px 20px 0px rgba(231, 239, 252, 1);
+      border-radius: 0.625rem;
+    }
+  }
+  // font30 color#333333
+  .f30c3 {
+    font-size: 1.875rem;
+    font-family: PingFang SC;
+    font-weight: 500;
+    color: rgba(51, 51, 51, 1);
+    line-height: 2;
+  }
 }
 </style>
