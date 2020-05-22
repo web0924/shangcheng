@@ -67,16 +67,46 @@
           <p class="day_push_content_left_txt">车主小管家</p>
           <img class="day_push_content_left_img" src="" />
         </div>
-        <div class="day_push_content_right" >
-          <div class="day_push_content_right_item" v-for="item in dayPushShop" :key="item.shop_title">
-            <div>
-              <span>{{item.shop_title}}</span>
-              <button>{{item.shop_price}}</button>
+        <div class="day_push_content_right">
+          <div
+            class="day_push_content_right_item"
+            v-for="item in dayPushShop"
+            :key="item.index"
+          >
+            <div class="day_push_content_right_item_moule">
+              <p class="f30c3">{{ item.shop_title }}</p>
+              <button class="day_push_content_right_item_btn">
+                {{ item.shop_price }}
+              </button>
             </div>
-            <img :src=item.shop_img />
+            <img class="day_push_content_right_item_img" :src="item.shop_img" />
           </div>
         </div>
       </div>
+    </div>
+    <!-- 车主精选 -->
+    <div class="choiceness">
+      <div class="choiceness_top">
+        <div class="choiceness_top_left">
+          <span class="choiceness_top_left_title">车主精选</span>
+          <span class="choiceness_top_left_txt">只为懂你 精选良品</span>
+        </div>
+        <span class="more">查看更多</span>
+      </div>
+      <ul class="choiceness_shopBox">
+        <li class="choiceness_shopBo_item"  v-for="(item, index) in choiceness" :key="index">
+          <router-link :to=item.routerLink>
+            <img :src=item.shopImg alt=""  />
+            <div class="choiceness_shopBo_item_bot">
+              <span class="choiceness_shopBo_item_title">{{item.shopName}}</span>
+              <div class="choiceness_shopBo_item_price">
+                <span>{{item.shopPrice}}</span>
+                <span v-show=item.shopPost class="choiceness_shopBo_item_icon">包邮</span>
+              </div>
+            </div>
+          </router-link>
+        </li>
+      </ul>
     </div>
   </div>
 </template>
@@ -94,9 +124,26 @@ export default {
         "https://img.yzcdn.cn/vant/apple-2.jpg"
       ],
       headlinesVal: "巴拉巴拉小魔仙半合成机油", //滚动头条信息
-      dayPushShop:[//每日更新商品
-        {shop_title:"拓力普 钳子",shop_price:"特价19.90",shop_img:"#"},
-        {shop_title:"拓力普 钳子",shop_price:"特价19.90",shop_img:"#"}
+      dayPushShop: [
+        //每日更新商品
+        {
+          index: 1,
+          shop_title: "拓力普 钳子",
+          shop_price: "特价19.90",
+          shop_img: "#"
+        },
+        {
+          index: 2,
+          shop_title: "拓力普 钳子",
+          shop_price: "特价19.90",
+          shop_img: "#"
+        }
+      ],
+      // 精选商品
+      choiceness:[
+        {routerLink:"#", shopImg:"#",shopName:"超值玻璃水x2瓶",shopPrice:"￥15",shopPost:true},
+        {routerLink:"#",shopImg:"#",shopName:"超值玻璃水x2瓶",shopPrice:"￥15",shopPost:true},
+        {routerLink:"#",shopImg:"#",shopName:"超值玻璃水x2瓶",shopPrice:"￥15",shopPost:true}
       ]
     };
   },
@@ -216,9 +263,13 @@ header {
 }
 // 每日更新
 .day_push {
-  width: 90%;
+  // width: 90%;
   margin: 2.5rem auto 0;
+  margin-left: 1.875rem;
+  margin-right: 1.875rem;
   border-radius: 10px;
+  box-shadow: 0px 0px 20px 0px rgba(231, 239, 252, 1);
+  padding: 1.875rem;
 
   .day_push_top {
     @include fj();
@@ -247,6 +298,7 @@ header {
     .day_push_content_right {
       width: 46%;
       height: 18.75rem;
+      box-sizing: border-box;
     }
     .day_push_content_left {
       padding-top: 1rem;
@@ -287,11 +339,29 @@ header {
     }
     .day_push_content_right .day_push_content_right_item {
       width: 100%;
-      height: 47%;
+      // height: 47%;
       background: rgba(255, 255, 255, 1);
       border: 1px solid rgba(245, 245, 245, 1);
-      box-shadow: 0px 0px 20px 0px rgba(231, 239, 252, 1);
+      box-shadow: 0px 0px 1.25rem 0px rgba(231, 239, 252, 1);
       border-radius: 0.625rem;
+      display: flex;
+      padding: 1.5rem 0 0.625rem 2.0625rem;
+    }
+    .day_push_content_right_item_btn {
+      border: 1px solid rgba(255, 56, 56, 1);
+      border-radius: 1.125rem;
+      font-size: 1.25rem;
+      font-family: PingFang SC;
+      font-weight: 400;
+      color: rgba(255, 56, 56, 1);
+      padding: 0 1.25rem;
+      background-color: white;
+      line-height: 2;
+    }
+    .day_push_content_right_item_img {
+      width: 6.3125rem;
+      height: 6.0625rem;
+      margin: 0.625rem 0 0 1rem;
     }
   }
   // font30 color#333333
@@ -301,6 +371,83 @@ header {
     font-weight: 500;
     color: rgba(51, 51, 51, 1);
     line-height: 2;
+  }
+}
+// 车主精选
+.choiceness {
+  margin: 2rem 1.875rem 0;
+  box-shadow: 0px 0px 1.25rem 0px #e7effc;
+  padding: 1.875rem;
+  .choiceness_top {
+    @include fj();
+    align-items: center;
+    .choiceness_top_left_title {
+      font-size: 1.875rem;
+      font-family: PingFang SC;
+      font-weight: bold;
+      color: rgba(51, 51, 51, 1);
+    }
+    .choiceness_top_left_txt {
+      font-size: 1.625rem;
+      font-family: PingFang SC;
+      font-weight: 400;
+      color: rgba(189, 189, 189, 1);
+      margin-left: 1.25rem;
+    }
+    .more {
+      font-size: 1.625rem;
+      font-family: PingFang SC;
+      font-weight: 400;
+      color: rgba(189, 189, 189, 1);
+    }
+  }
+  .choiceness_shopBox {
+    @include fj();
+    flex-wrap: wrap;
+    a{
+      width: 100%;
+    }
+    .choiceness_shopBo_item {
+      width: 45%;
+      margin-top: 2.5rem;
+      border-radius: 10px;
+      // overflow: hidden;
+      .choiceness_shopBo_item_bot {
+        padding-top: 1.875rem;
+        box-shadow: 0px 0px 1.25rem 0px rgba(231, 239, 252, 1);
+      }
+      .choiceness_shopBo_item_title {
+        font-size: 1.75rem;
+        font-family: PingFang SC;
+        font-weight: 400;
+        color: rgba(51, 51, 51, 1);
+        line-height: 2;
+        margin-left: 1.625rem;
+      }
+      .choiceness_shopBo_item_price {
+        font-size: 2.5rem;
+        font-family: PingFang SC;
+        font-weight: bold;
+        color: rgba(253, 71, 80, 1);
+        // line-height: 2;
+        @include fj();
+        padding: 0 1.25rem 1.5625rem 1.875rem;
+      }
+      .choiceness_shopBo_item_icon {
+        display: inline-block;
+        border-radius: 0.3125rem;
+        border: 1px solid rgba(253, 71, 80, 1);
+        font-size:1.375rem;
+        padding: 0 0.75rem;
+        line-height: 2;
+      }
+      img {
+        width: 100%;
+        height: 15.1875rem;
+        border: 1px solid;
+        display: inline-block;
+      }
+    }
   }
 }
 </style>
