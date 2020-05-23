@@ -94,26 +94,72 @@
         <span class="more">查看更多</span>
       </div>
       <ul class="choiceness_shopBox">
-        <li class="choiceness_shopBo_item"  v-for="(item, index) in choiceness" :key="index">
-          <router-link :to=item.routerLink>
-            <img :src=item.shopImg alt=""  />
+        <li
+          class="choiceness_shopBo_item"
+          v-for="(item, index) in choiceness"
+          :key="index"
+        >
+          <router-link :to="item.routerLink">
+            <img :src="item.shopImg" alt="" />
             <div class="choiceness_shopBo_item_bot">
-              <span class="choiceness_shopBo_item_title">{{item.shopName}}</span>
+              <span class="choiceness_shopBo_item_title">{{
+                item.shopName
+              }}</span>
               <div class="choiceness_shopBo_item_price">
-                <span>{{item.shopPrice}}</span>
-                <span v-show=item.shopPost class="choiceness_shopBo_item_icon">包邮</span>
+                <span>{{ item.shopPrice }}</span>
+                <button
+                  v-show="item.shopPost"
+                  class="choiceness_shopBo_item_icon"
+                >
+                  包邮
+                </button>
               </div>
             </div>
           </router-link>
         </li>
       </ul>
     </div>
+    <!-- 底部导航 -->
+    <ul class="footer" ref="footerH">
+      <router-link to="">
+        <li>
+          <img src="" alt="" />
+          <span>首页</span>
+        </li>
+      </router-link>
+      <router-link to="">
+        <li>
+          <img src="" alt="" />
+          <span>首页</span>
+        </li>
+      </router-link>
+
+      <router-link to="">
+        <li>
+          <img src="" alt="" />
+          <span>首页</span>
+        </li>
+      </router-link>
+      <router-link to="">
+        <li>
+          <img src="" alt="" />
+          <span>首页</span>
+        </li>
+      </router-link>
+    </ul>
+    >
+    <!-- 空div -->
+    <empty-div :emptyDiv="emptyDiv" />
   </div>
 </template>
 
 <script>
 import { Toast } from "vant";
+import emptyDiv from "../../components/emptyDiv";
 export default {
+  components: {
+    emptyDiv
+  },
   data() {
     return {
       search_value: "", //商品搜索
@@ -140,13 +186,33 @@ export default {
         }
       ],
       // 精选商品
-      choiceness:[
-        {routerLink:"#", shopImg:"#",shopName:"超值玻璃水x2瓶",shopPrice:"￥15",shopPost:true},
-        {routerLink:"#",shopImg:"#",shopName:"超值玻璃水x2瓶",shopPrice:"￥15",shopPost:true},
-        {routerLink:"#",shopImg:"#",shopName:"超值玻璃水x2瓶",shopPrice:"￥15",shopPost:true}
-      ]
+      choiceness: [
+        {
+          routerLink: "#",
+          shopImg: "#",
+          shopName: "超值玻璃水x2瓶",
+          shopPrice: "￥15",
+          shopPost: true
+        },
+        {
+          routerLink: "#",
+          shopImg: "#",
+          shopName: "超值玻璃水x2瓶",
+          shopPrice: "￥15",
+          shopPost: true
+        },
+        {
+          routerLink: "#",
+          shopImg: "#",
+          shopName: "超值玻璃水x2瓶",
+          shopPrice: "￥15",
+          shopPost: true
+        }
+      ],
+      emptyDiv: null //空div
     };
   },
+
   methods: {
     onSearch(val) {
       Toast(val);
@@ -157,6 +223,11 @@ export default {
     onFocus() {
       Toast("弹出搜索页面");
     }
+  },
+  mounted() {
+    // 获取footer元素的高度
+    this.emptyDiv = window.getComputedStyle(this.$refs.footerH).height;
+    // console.log(this.emptyDiv);
   }
 };
 </script>
@@ -404,7 +475,7 @@ header {
   .choiceness_shopBox {
     @include fj();
     flex-wrap: wrap;
-    a{
+    a {
       width: 100%;
     }
     .choiceness_shopBo_item {
@@ -436,10 +507,11 @@ header {
       .choiceness_shopBo_item_icon {
         display: inline-block;
         border-radius: 0.3125rem;
-        border: 1px solid rgba(253, 71, 80, 1);
-        font-size:1.375rem;
+        border: 0.5px solid rgba(253, 71, 80, 1);
+        font-size: 1.25rem;
         padding: 0 0.75rem;
         line-height: 2;
+        background-color: white;
       }
       img {
         width: 100%;
@@ -448,6 +520,32 @@ header {
         display: inline-block;
       }
     }
+  }
+}
+.footer {
+  @include fj();
+  @include wh(100%, auto);
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  background-color: white;
+  padding: 0.875rem 3.125rem;
+  box-sizing: border-box;
+  text-align: center;
+  border: 1px solid rgba(226, 226, 226, 1);
+  box-shadow: 0px 0.125rem 0.625rem 0px rgba(205, 205, 205, 1);
+  img {
+    @include wh(2.625rem, 2.625rem);
+    border: 1px solid red;
+    display: block;
+    margin: 0 auto;
+  }
+  span {
+    font-size: 1.375rem;
+    font-family: PingFang SC;
+    font-weight: 400;
+    color: rgba(46, 126, 254, 1);
+    line-height: 2;
   }
 }
 </style>
