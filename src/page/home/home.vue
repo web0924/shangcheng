@@ -221,7 +221,8 @@ export default {
       Toast("取消");
     },
     onFocus() {
-      Toast("弹出搜索页面");
+      // Toast("弹出搜索页面");
+      this.$router.replace("/shopSearch");
     }
   },
   mounted() {

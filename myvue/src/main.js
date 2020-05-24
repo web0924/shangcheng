@@ -3,24 +3,24 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
-import store from './store/index'
-import './config/rem'
-import { Search, Toast, Swipe, SwipeItem, Lazyload, Col, Row, Icon } from 'vant';
+import Vant from 'vant';
 import 'vant/lib/index.css';
-
-Vue.use(Search).use(Toast).use(Swipe).use(SwipeItem).use(Lazyload).use(Col).use(Row).use(Icon);
+import animated from 'animate.css'
 
 import axios from 'axios'
-
 Vue.prototype.$axios = axios
-axios.defaults.baseURL = '/api'
+axios.defaults.baseURL = '/api' //关键代码
+
+
+Vue.use(Vant);
+Vue.use(animated)
+
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */
 new Vue({
     el: '#app',
     router,
-    store,
     components: { App },
     template: '<App/>'
 })
