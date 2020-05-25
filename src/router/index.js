@@ -12,7 +12,12 @@ export default new Router({
         {
             path: '/shopSearch',
             name: 'shopSearch',
-            component: resolve => (require(["@/page/homeSearch/homeSeach.vue"], resolve))
+            component: resolve => (require(["@/page/homeSearch/homeSeach"], resolve))
+        },
+        {
+            path: '/HotRecommended',
+            name: 'HotRecommended',
+            component: resolve => (require(["@/page/HotRecommended/HotRecommended"], resolve))
         }
     ]
 })

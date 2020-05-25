@@ -22,7 +22,7 @@
     </van-swipe>
     <!-- 金刚区 -->
     <van-row type="flex" justify="center">
-      <van-col span="6">
+      <van-col span="6" @click="toHotRecommended">
         <img class="four_img" src />
         <span>爆款推荐</span>
       </van-col>
@@ -223,6 +223,10 @@ export default {
     onFocus() {
       // Toast("弹出搜索页面");
       this.$router.replace("/shopSearch");
+    },
+    // 路由跳转
+    toHotRecommended() {
+      this.$router.replace('/HotRecommended')
     }
   },
   mounted() {
